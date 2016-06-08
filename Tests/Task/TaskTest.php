@@ -23,6 +23,7 @@ class TaskTest extends PHPUnitBase
             'new.source.css'
         ]);
 
+        $this->assertEquals(true, $task->getConfiguration()->hasParameter('debug'));
         $this->assertContains('new.source.css', $task->getSources());
         $this->assertNotContains('source.css', $task->getSources());
         $this->assertEquals(true, $task->isDebug());
