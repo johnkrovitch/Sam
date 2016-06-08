@@ -2,13 +2,12 @@
 
 namespace JK\Sam\Tests\File;
 
-require_once __DIR__.'/../PHPUnitBase.php';
 
 use JK\Sam\File\Normalizer;
-use JK\Sam\Tests\PHPUnitBaseTest;
+use JK\Sam\Tests\PHPUnitBase;
 use SplFileInfo;
 
-class NormalizerTest extends PHPUnitBaseTest
+class NormalizerTest extends PHPUnitBase
 {
     public function testNormalize()
     {
@@ -17,7 +16,7 @@ class NormalizerTest extends PHPUnitBaseTest
         // string normalization
         $file = $this->createFile('test.css');
         $normalizedFile = $normalizer->normalize($file);
-        // it SHOULD return a instance of SplFileInfo representing the file
+        // it MUST return a instance of SplFileInfo representing the file
         $this->assertInstanceOf(SplFileInfo::class, $normalizedFile);
         $this->assertEquals($file, $normalizedFile->getRealPath());
         $this->assertExceptionThrown(function() use ($normalizer) {

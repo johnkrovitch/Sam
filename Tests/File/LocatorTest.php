@@ -2,26 +2,24 @@
 
 namespace JK\Sam\Tests\File;
 
-require_once __DIR__.'/../PHPUnitBase.php';
-
 use JK\Sam\File\Locator;
 use JK\Sam\File\Normalizer;
-use JK\Sam\Tests\PHPUnitBaseTest;
+use JK\Sam\Tests\PHPUnitBase;
 
-class LocatorTest extends PHPUnitBaseTest
+class LocatorTest extends PHPUnitBase
 {
     public function testLocate()
     {
         $normalizer = new Normalizer($this->getCacheDir());
         $locator = new Locator($normalizer);
 
-        // locate SHOULD find a single file
+        // locate MUST find a single file
         $this->createFile('test.css');
         $sources = $locator->locate($this->getCacheDir().'/test.css');
         $this->assertCount(1, $sources);
         $this->assertEquals($this->getCacheDir().'/test.css', $sources[0]->getRealPath());
 
-        // locator SHOULD find multiple files in a directory
+        // locator MUST find multiple files in a directory
         mkdir($this->getCacheDir().'/test');
         touch($this->getCacheDir().'/test/test.css');
         touch($this->getCacheDir().'/test/test2.css');
@@ -31,5 +29,21 @@ class LocatorTest extends PHPUnitBaseTest
         $this->assertEquals($this->getCacheDir().'/test/test2.css', $sources[1]->getRealPath());
 
         $this->assertInstanceOf(Normalizer::class, $locator->getNormalizer());
+
+        // finder pattern MUST return sources
+        mkdir($this->getCacheDir().'/finder');
+        touch($this->getCacheDir().'/finder/first.css');
+        touch($this->getCacheDir().'/finder/second.css');
+        touch($this->getCacheDir().'/finder/third.js');
+        $sources = $locator->locate($this->getCacheDir().'/finder/*.css');
+
+        $this->assertCount(2, $sources);
+        $allowed = [
+            $this->getCacheDir().'/finder/first.css',
+            $this->getCacheDir().'/finder/second.css',
+        ];
+        $this->assertContains($sources[0]->getRealPath(), $allowed);
+        $this->assertContains($sources[1]->getRealPath(), $allowed);
+
     }
 }
