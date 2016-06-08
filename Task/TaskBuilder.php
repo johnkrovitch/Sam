@@ -36,18 +36,36 @@ class TaskBuilder
         foreach ($taskConfigurations as $taskName => $taskConfiguration) {
             $resolver->clear();
 
+            // debug mode
             if ($this->debug === true) {
                 $taskConfiguration['debug'] = $this->debug;
             }
+            // add copy filter in last position if required
+            if (!$this->hasCopyFilter($taskConfiguration)) {
+                $taskConfiguration['filters'][] = 'copy';
+            }
+
             $configuration = new TaskConfiguration();
             $configuration->configureOptions($resolver);
             $configuration->setParameters($resolver->resolve($taskConfiguration));
-
 
             $task = new Task($taskName, $configuration);
             $tasks[$taskName] = $task;
         }
 
         return $tasks;
+    }
+
+    /**
+     * Return true if tje copy filter is in last position.
+     *
+     * @param array $configuration
+     * @return bool
+     */
+    protected function hasCopyFilter(array $configuration)
+    {
+        return is_array($configuration['filters'])
+            && $configuration['filters'][count($configuration['filters'] - 1)] == 'copy'
+        ;
     }
 }

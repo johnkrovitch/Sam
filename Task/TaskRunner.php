@@ -22,7 +22,7 @@ class TaskRunner
     /**
      * TaskRunner constructor.
      *
-     * @param array $filters
+     * @param FilterInterface[] $filters
      * @param Locator $locator
      */
     public function __construct(array $filters, Locator $locator)
@@ -43,9 +43,6 @@ class TaskRunner
         $filters = $task
             ->getConfiguration()
             ->getParameter('filters');
-
-        // automatic adding of the copy filter
-        $filters[] = 'copy';
 
         // get sources files
         $sources = $this->fetchSources($task);
@@ -112,7 +109,7 @@ class TaskRunner
      * Fetch the destination files from the task and return and array of SplInfo.
      *
      * @param Task $task
-     * @return array
+     * @return SplFileInfo[]
      */
     protected function fetchDestinations(Task $task)
     {
@@ -120,10 +117,7 @@ class TaskRunner
 
         foreach ($task->getDestinations() as $source) {
             // locate new resource and merge them to the existing sources
-            $sources[] = $this
-                ->locator
-                ->getNormalizer()
-                ->normalize($source);
+            $sources[] = new SplFileInfo($source);
         }
 
         return $sources;
@@ -135,10 +129,16 @@ class TaskRunner
      * @param SplFileInfo[] $sources
      * @param FilterInterface $filter
      * @return array
+     * @throws Exception
      */
     protected function filterSources(array $sources, FilterInterface $filter)
     {
         $filteredSources = [];
+
+        // if the filter supports no extension, there is an error
+        if (!is_array($filter->getSupportedExtensions()) || !count($filter->getSupportedExtensions())) {
+            throw new Exception('No supported extensions found for the filter '.$filter->getName());
+        }
 
         // if the filter support all the files types, no need to filter
         if (in_array('*', $filter->getSupportedExtensions())) {
