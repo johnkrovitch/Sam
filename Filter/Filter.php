@@ -88,6 +88,14 @@ abstract class Filter implements FilterInterface
     }
 
     /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Return files matching $pattern in filters cache directory.
      *
      * @param string $pattern

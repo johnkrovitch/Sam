@@ -41,4 +41,11 @@ interface FilterInterface
      * Clean the generated files.
      */
     public function clean();
+
+    /**
+     * Return the filter name.
+     *
+     * @return string
+     */
+    public function getName();
 }
