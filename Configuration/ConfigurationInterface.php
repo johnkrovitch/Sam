@@ -30,4 +30,10 @@ interface ConfigurationInterface
      * @return array
      */
     public function getParameters();
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function hasParameter($name);
 }
