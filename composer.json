@@ -1,5 +1,5 @@
 {
-  "name": "jk/sam",
+  "name": "johnkrovitch/sam",
   "description": "Simple PHP Assets Manager",
   "type": "symfony-bundle",
   "license": "MIT",
