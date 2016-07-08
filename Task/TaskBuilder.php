@@ -65,7 +65,7 @@ class TaskBuilder
     protected function hasCopyFilter(array $configuration)
     {
         return is_array($configuration['filters'])
-            && $configuration['filters'][count($configuration['filters'] - 1)] == 'copy'
+            && $configuration['filters'][count($configuration['filters']) - 1] == 'copy'
         ;
     }
 }
