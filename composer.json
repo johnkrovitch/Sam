@@ -1,7 +1,7 @@
 {
   "name": "johnkrovitch/sam",
-  "description": "Simple PHP Assets Manager",
-  "type": "symfony-bundle",
+  "description": "Simple Assets Manager",
+  "type": "library",
   "license": "MIT",
   "authors": [
     {

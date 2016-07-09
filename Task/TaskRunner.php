@@ -157,7 +157,7 @@ class TaskRunner
             $isExtensionSupported = in_array($source->getExtension(), $filter->getSupportedExtensions());
             $supportAllExtensions = in_array('*', $filter->getSupportedExtensions());
 
-            if ($isExtensionSupported  || $supportAllExtensions) {
+            if ($isExtensionSupported || $supportAllExtensions) {
                 $filteredSources[] = $this
                     ->locator
                     ->getNormalizer()
