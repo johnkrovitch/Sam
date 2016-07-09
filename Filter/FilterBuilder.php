@@ -62,7 +62,6 @@ class FilterBuilder
             if ($filterConfiguration === null) {
                 $filterConfiguration = [];
             }
-
             $configuration = $this->getFilterConfiguration($filterName);
             $configuration->configureOptions($resolver);
             $configuration->setParameters($resolver->resolve($filterConfiguration));

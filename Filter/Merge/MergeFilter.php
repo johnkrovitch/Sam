@@ -14,7 +14,7 @@ class MergeFilter extends Filter
     /**
      * @param SplFileInfo[] $sources
      * @param SplFileInfo[] $destinations
-     * @return array|\SplFileInfo[]
+     * @return array|SplFileInfo[]
      */
     public function run(array $sources, array $destinations)
     {

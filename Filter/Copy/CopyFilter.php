@@ -42,7 +42,8 @@ class CopyFilter extends Filter
                 $destination = $destination.'/'.$source->getFilename();
             }
             $this->addNotification('copying "'.$source.'" to "'.$destination.'"');
-            $fileSystem->copy($source->getRealPath(), $destination->getRealPath());
+
+            $fileSystem->copy($source, $destination);
             $copiedFiles[] = $destination;
         }
 
