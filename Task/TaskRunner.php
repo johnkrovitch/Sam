@@ -180,12 +180,17 @@ class TaskRunner
     protected function updateSources(array $originalSources, array $filteredSources, array $updatedSources)
     {
         $sources = [];
+        $filteredPath = [];
 
+        foreach ($filteredSources as $filteredSource) {
+            $filteredPath[] = $filteredSource->getPath();
+        }
         // keep only the not filtered files
-        foreach ($originalSources as $source) {
+        foreach ($originalSources as $originalSource) {
 
-            if (!in_array($source, $filteredSources)) {
-                $sources[] = $source;
+            // if an original source is not used by the current filter, we keep it in the source list
+            if (!in_array($originalSource->getPath(), $filteredPath)) {
+                $sources[] = $originalSource;
             }
         }
         // check updated files
