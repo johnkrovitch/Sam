@@ -16,6 +16,7 @@ class NormalizerTest extends PHPUnitBase
         // string normalization
         $file = $this->createFile('test.css');
         $normalizedFile = $normalizer->normalize($file);
+        
         // it MUST return a instance of SplFileInfo representing the file
         $this->assertInstanceOf(SplFileInfo::class, $normalizedFile);
         $this->assertEquals($file, $normalizedFile->getRealPath());

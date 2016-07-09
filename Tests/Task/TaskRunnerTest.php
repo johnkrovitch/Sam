@@ -9,6 +9,16 @@ class TaskRunnerTest extends PHPUnitBase
 {
     public function testRun()
     {
+        $this->wrongConfigurationTest();
+        $this->wrongFilterTest();
+        $this->emptyTaskTest();
+        $this->rightTaskTest();
+        $this->successTest();
+        $this->wrongSourcesTest();
+    }
+
+    protected function wrongConfigurationTest()
+    {
         // the task runner MUST fail running a task with a non configured filter
         $task = $this->getTask('empty_task', [
             'sources' => [],
@@ -21,8 +31,10 @@ class TaskRunnerTest extends PHPUnitBase
         $this->assertExceptionThrown(function() use ($task, $taskRunner) {
             $taskRunner->run($task);
         }, 'Invalid filter wrong. Check your mapping configuration');
-        // ***********************************************
+    }
 
+    protected function wrongFilterTest()
+    {
         // the task runner MUST fail running a task with a bad filter
         $task = $this->getTask('copy_task', [
             'sources' => [],
@@ -40,8 +52,10 @@ class TaskRunnerTest extends PHPUnitBase
         $this->assertExceptionThrown(function() use ($task, $taskRunner) {
             $taskRunner->run($task);
         }, 'No supported extensions found for the filter ');
-        // ***********************************************
+    }
 
+    protected function emptyTaskTest()
+    {
         // the task runner MUST run with success with a right empty task
         $task = $this->getTask('copy_task', [
             'sources' => [],
@@ -62,8 +76,10 @@ class TaskRunnerTest extends PHPUnitBase
         $filters['copy'] = $copyFilter;
         $taskRunner = $this->getTaskRunner($filters);
         $taskRunner->run($task);
-        // ***********************************************
+    }
 
+    protected function rightTaskTest()
+    {
         // the task runner MUST run with success with a right task
         touch($this->getCacheDir().'/copy.css');
         touch($this->getCacheDir().'/other.copy.css');
@@ -97,9 +113,10 @@ class TaskRunnerTest extends PHPUnitBase
         $filters['copy2'] = $copyFilter;
         $taskRunner = $this->getTaskRunner($filters);
         $taskRunner->run($task);
-        // ***********************************************
+    }
 
-        // the task runner MUST fail with bad updated sources
+    protected function successTest()
+    {
         $task = $this->getTask('copy_task', [
             'sources' => [
                 $this->getCacheDir().'/*.css',
@@ -125,7 +142,11 @@ class TaskRunnerTest extends PHPUnitBase
         $filters['copy2'] = $copyFilter;
         $taskRunner = $this->getTaskRunner($filters);
         $taskRunner->run($task);
+    }
 
+    protected function wrongSourcesTest()
+    {
+        // the task runner MUST fail with bad updated sources
         $task = $this->getTask('copy_task', [
             'sources' => [
                 $this->getCacheDir().'/copy.css',
