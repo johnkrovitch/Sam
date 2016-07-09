@@ -8,7 +8,7 @@ use JK\Sam\Tests\PHPUnitBase;
 
 class LocatorTest extends PHPUnitBase
 {
-    public function testLocate()
+    public function testFindSingleFile()
     {
         $normalizer = new Normalizer($this->getCacheDir());
         $locator = new Locator($normalizer);
@@ -18,6 +18,12 @@ class LocatorTest extends PHPUnitBase
         $sources = $locator->locate($this->getCacheDir().'/test.css');
         $this->assertCount(1, $sources);
         $this->assertEquals($this->getCacheDir().'/test.css', $sources[0]->getRealPath());
+    }
+
+    public function testFindMultipleFile()
+    {
+        $normalizer = new Normalizer($this->getCacheDir());
+        $locator = new Locator($normalizer);
 
         // locator MUST find multiple files in a directory
         mkdir($this->getCacheDir().'/test');
@@ -29,6 +35,12 @@ class LocatorTest extends PHPUnitBase
         $this->assertEquals($this->getCacheDir().'/test/test2.css', $sources[1]->getRealPath());
 
         $this->assertInstanceOf(Normalizer::class, $locator->getNormalizer());
+    }
+
+    public function testFinderPattern()
+    {
+        $normalizer = new Normalizer($this->getCacheDir());
+        $locator = new Locator($normalizer);
 
         // finder pattern MUST return sources
         mkdir($this->getCacheDir().'/finder');
@@ -44,6 +56,28 @@ class LocatorTest extends PHPUnitBase
         ];
         $this->assertContains($sources[0]->getRealPath(), $allowed);
         $this->assertContains($sources[1]->getRealPath(), $allowed);
+    }
 
+    public function testFinderPatternWithEndingWildCard()
+    {
+        $normalizer = new Normalizer($this->getCacheDir());
+        $locator = new Locator($normalizer);
+
+        // finder pattern MUST return sources
+        mkdir($this->getCacheDir().'/finder');
+        touch($this->getCacheDir().'/finder/first.css');
+        touch($this->getCacheDir().'/finder/second.css');
+        touch($this->getCacheDir().'/finder/third.js');
+        $sources = $locator->locate($this->getCacheDir().'/finder/*');
+
+        $this->assertCount(3, $sources);
+        $allowed = [
+            $this->getCacheDir().'/finder/first.css',
+            $this->getCacheDir().'/finder/second.css',
+            $this->getCacheDir().'/finder/third.js',
+        ];
+        $this->assertContains($sources[0]->getRealPath(), $allowed);
+        $this->assertContains($sources[1]->getRealPath(), $allowed);
+        $this->assertContains($sources[2]->getRealPath(), $allowed);
     }
 }
