@@ -43,7 +43,7 @@ class CopyFilter extends Filter
             }
             $this->addNotification('copying "'.$source.'" to "'.$destination.'"');
 
-            $fileSystem->copy($source, $destination);
+            $fileSystem->copy($source->getPath(), $destination->getPath());
             $copiedFiles[] = $destination;
         }
 
