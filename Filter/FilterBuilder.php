@@ -68,7 +68,7 @@ class FilterBuilder
 
             $class = $this->mapping[$filterName];
 
-            /** @var Filter $filter */
+            /** @var FilterInterface $filter */
             $filter = new $class(
                 // filter's name
                 $filterName,
