@@ -11,7 +11,7 @@ class CopyFilter extends Filter
 {
     /**
      * @param SplFileInfo[] $sources
-     * @param SplFileInfo[] $destinations
+     * @param string[] $destinations
      * @return SplFileInfo[]
      * @throws Exception
      */
@@ -43,7 +43,7 @@ class CopyFilter extends Filter
             }
             $this->addNotification('copying "'.$source.'" to "'.$destination.'"');
 
-            $fileSystem->copy($source->getPath(), $destination->getPath());
+            $fileSystem->copy($source->getRealPath(), $destination);
             $copiedFiles[] = $destination;
         }
 
