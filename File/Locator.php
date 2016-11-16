@@ -26,7 +26,7 @@ class Locator
     /**
      * Locate a source either if it a file or a directory and normalize it. Return an array of SplFileInfo.
      *
-     * @param $source
+     * @param mixed $source
      * @return SplFileInfo[]
      * @throws Exception
      */
@@ -35,7 +35,14 @@ class Locator
         $sources = [];
         $normalizedSources = [];
 
-        if (is_dir($source)) {
+        // if the wildcard is at the end of the string, it means that we look for a directory
+        $endingWithWilCard = substr($source, strlen($source) - 2) === '/*';
+
+        if ($endingWithWilCard) {
+            $source = substr($source, 0, strlen($source) - 2);
+        }
+
+        if (is_dir($source) || $endingWithWilCard) {
             $finder = new Finder();
             $finder->in($source);
 

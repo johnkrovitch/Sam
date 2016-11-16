@@ -1,7 +1,7 @@
 {
   "name": "johnkrovitch/sam",
-  "description": "Simple PHP Assets Manager",
-  "type": "symfony-bundle",
+  "description": "Simple Assets Manager",
+  "type": "library",
   "license": "MIT",
   "authors": [
     {
@@ -11,23 +11,24 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "symfony/event-dispatcher": "^3.1",
-    "symfony/finder": "^3.1",
-    "symfony/filesystem": "^3.1",
-    "symfony/process": "^3.1",
-    "symfony/dependency-injection": "^3.1",
-    "symfony/options-resolver": "^3.1",
+    "symfony/event-dispatcher": ">=3.0",
+    "symfony/finder": ">=3.0",
+    "symfony/filesystem": ">=3.0",
+    "symfony/process": ">=3.0",
+    "symfony/dependency-injection": ">=3.0",
+    "symfony/options-resolver": ">=3.0",
     "matthiasmullie/minify": "^1.3"
   },
   "require-dev": {
-    "phpunit/phpunit": "^5.4"
+    "phpunit/phpunit": "^5.4",
+    "scrutinizer/ocular": "~1.1"
   },
   "autoload": {
     "psr-0": {
       "JK\\Sam": ""
     }
   },
-  "target-dir": "JK/SAM",
+  "target-dir": "JK/Sam",
   "config": {
     "bin-dir": "bin"
   },

@@ -62,14 +62,13 @@ class FilterBuilder
             if ($filterConfiguration === null) {
                 $filterConfiguration = [];
             }
-
             $configuration = $this->getFilterConfiguration($filterName);
             $configuration->configureOptions($resolver);
             $configuration->setParameters($resolver->resolve($filterConfiguration));
 
             $class = $this->mapping[$filterName];
 
-            /** @var Filter $filter */
+            /** @var FilterInterface $filter */
             $filter = new $class(
                 // filter's name
                 $filterName,

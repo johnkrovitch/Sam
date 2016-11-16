@@ -41,4 +41,17 @@ interface FilterInterface
      * Clean the generated files.
      */
     public function clean();
+
+    /**
+     * Return the filter name.
+     *
+     * @return string
+     */
+    public function getName();
+
+    /**
+     * Check if the requirements are matched before running the filter. Should thrown an exception if the requirements
+     * does not match.
+     */
+    public function checkRequirements();
 }

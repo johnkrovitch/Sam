@@ -32,7 +32,7 @@ class MinifyFilter extends Filter
             }
 
             if ($source->getExtension() == 'css') {
-                $this->addNotification('Add '.$source.' to css minification');
+                $this->addNotification('add '.$source.' to css minification');
                 $cssMinifier->add($source);
                 $hasCss = true;
             }
@@ -51,7 +51,7 @@ class MinifyFilter extends Filter
         // css minification if required
         if ($hasCss) {
             $this->addNotification($cssMinified.' css minification');
-            $jsMinifier->minify($cssMinified);
+            $cssMinifier->minify($cssMinified);
             $updatedSources[] = $cssMinified;
         }
 

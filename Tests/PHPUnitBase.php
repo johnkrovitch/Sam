@@ -3,10 +3,16 @@
 namespace JK\Sam\Tests;
 
 use Exception;
+use JK\Sam\File\Locator;
+use JK\Sam\File\Normalizer;
+use JK\Sam\Task\Task;
+use JK\Sam\Task\TaskConfiguration;
+use JK\Sam\Task\TaskRunner;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PHPUnitBaseTest extends PHPUnit_Framework_TestCase
+class PHPUnitBase extends PHPUnit_Framework_TestCase
 {
     protected $fileSystem;
 
@@ -84,10 +90,38 @@ class PHPUnitBaseTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * 
+     * Remove the cache directory.
      */
     protected function tearDown()
     {
         $this->removeCacheDir();
+    }
+
+    /**
+     * @param array $filters
+     * @return TaskRunner
+     */
+    protected function getTaskRunner($filters = [])
+    {
+        $locator = new Locator(new Normalizer($this->getCacheDir()));
+        $taskRunner = new TaskRunner($filters, $locator);
+
+        return $taskRunner;
+    }
+
+    /**
+     * @param $name
+     * @param $configuration
+     * @return Task
+     */
+    protected function getTask($name, $configuration)
+    {
+        $resolver = new OptionsResolver();
+        $taskConfiguration = new TaskConfiguration();
+        $taskConfiguration->configureOptions($resolver);
+        $taskConfiguration->setParameters($resolver->resolve($configuration));
+        $task = new Task($name, $taskConfiguration);
+
+        return $task;
     }
 }

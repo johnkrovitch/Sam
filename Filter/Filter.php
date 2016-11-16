@@ -71,8 +71,9 @@ abstract class Filter implements FilterInterface
      */
     public function clean()
     {
-        if (file_exists($this->getCacheDir())) {
-            $fileSystem = new Filesystem();
+        $fileSystem = new Filesystem();
+
+        if ($fileSystem->exists($this->getCacheDir())) {
             $fileSystem->remove($this->getCacheDir());
         }
     }
@@ -84,7 +85,22 @@ abstract class Filter implements FilterInterface
      */
     public function getCacheDir()
     {
-        return 'var/cache/assets/'.$this->name.'/';
+        $fileSystem = new Filesystem();
+        $path = 'var/cache/assets/'.$this->name.'/';
+
+        if (!$fileSystem->exists($path)) {
+            $fileSystem->mkdir($path);
+        }
+
+        return $path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
