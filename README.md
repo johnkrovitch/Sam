@@ -39,10 +39,10 @@ like the binary path.
 Sam a has the following built-in filters for now. More will be added.
 You can also add your own filter
 
-* Compass Filter
+* Compass filter
 
-The Compass filter will use the Compass binary to transform your scss
-files into css files.
+The Compass filter will use the [Compass](http://compass-style.org/)
+binary to transform your ".scss" files into ".css" files.
 
 ```php
     $configuration = [
@@ -53,3 +53,154 @@ files into css files.
         }
     ];
 ```
+
+* Minify filter
+
+The Minify Filter use the [matthiasmullie/minify](https://github.com/matthiasmullie/minify)
+library to minify your css and js files. No options are available for now.
+
+* Merge filter
+
+The Merge filter will merge multiple files into one. It allow you to reduce
+the number of http request. No options are available for now.
+
+* Copy filter
+
+The Copy filter will copy one or more files into one or more directory.
+
+#### Building your filters
+
+In order to use compile your assets, you have to build the filters, using
+the FilterBuilder. It will check the given configuration and create
+filters instances according to this configuration.
+
+```php
+    
+    // enable the filters with default configuration
+    $configuration = [
+        'compass' => [],
+        'merge' => [],
+        'minify' => [],
+    ];
+    
+    // an event dispatcher is required. Some events will be dispatched
+    // before the application of each filter
+    $eventDispatcher = new EventDispatcher();
+    
+    // build tasks using the builder
+    $builder = new FilterBuilder($eventDispatcher);
+    
+    // filters are build, they can be passed to the runner
+    $filters = $builder->build($configuration);
+
+```
+
+### Tasks
+
+A Task will apply one or more filters to a list of source files to a 
+directory or a list of destination files. It describe your asset compilation
+process.
+
+#### Building your tasks
+
+```php
+
+    $taskConfigurations = [
+        // main.css is just a name, you can put what ever you want
+        'main.css' => [
+            // this filters will be applied in this order to the destination files 
+            'filters' => [
+                'compass',
+                'minify',
+                'merge',
+            ],
+            // sources file to be compiled
+            'sources' => [
+                'src/MyBundle/Resources/public/css/mycss.css',
+                'app/Resources/public/css/mycss.css',
+                'css/mycss.css',
+                'vendor/a-library/css/lib.css'
+            },
+            // all assets will be minified and merged to this file
+            'destinations' => [
+                'web/css/main.min.css'
+            ],
+        ],
+        
+        'main.js' => [
+            'filters' => [
+                'compass',
+                'minify',
+                'merge',
+            ],
+            'sources' => [
+                'css/myjs.js',
+                'css/mycss.css',
+                'css/mycss.scss',
+            },
+            // all assets will be minified and merged to this directory
+            'destinations' => [
+                'web/css'
+            ],
+        ]
+    ];
+    
+    // build tasks using the builder
+    $builder = new TaskBuilder();
+    $tasks = $builder->build($taskConfigurations);
+    
+```
+
+
+### Running the tasks
+
+
+Once your filters are configured and build, once your tasks are create,
+you should run the task using the TaskRunner. A normalizer should be 
+created to normalize file names for the filters.
+
+```php
+
+    // used to normalize file names beecause multiple pattern ccould be passed
+    $normalizer = new Normalizer('/path/to/project_root');
+    
+    // used to locate the file
+    $locator = new Locator($normalizer);
+    
+    // create the runner
+    $runner = new TaskRunner(
+        $filters,
+        $locator,
+        // debug
+        false
+    );
+
+    // run your task
+    foreach ($tasks as $task) {
+        $runner->run($task);
+    }
+
+```
+
+
+## SamBundle
+
+Sam is designed to be used with Symfony and [SamBundle](https://github.com/johnkrovitch/SamBundle) 
+integrate the Sam library with Symfony. It will allow your to put your assets
+configuration into yaml files. It will ease the integration of vendor js/css
+library (bootstrap, jquery...) using composer.
+
+You no more have to use BootstrapBundle or jQueryBundle. You just have to 
+require them using composer and easily copy, merge, minify those files
+with your custom assets.
+
+
+## Issues
+
+
+Feel free to open an issue if you have a problem using this library.
+
+
+## License
+
+The Sam library is release under the [MIT License](https://opensource.org/licenses/MIT).
