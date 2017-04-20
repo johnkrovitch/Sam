@@ -32,9 +32,14 @@ class LocatorTest extends PHPUnitBase
         $sources = $locator->locate($this->getCacheDir().'/test');
         $this->assertCount(2, $sources);
         
-        $this->assertEquals($this->getCacheDir().'/test/test.css', $sources[1]->getRealPath());
-        $this->assertEquals($this->getCacheDir().'/test/test2.css', $sources[0]->getRealPath());
-    
+        $asserts = [
+            $this->getCacheDir().'/test/test.css',
+            $this->getCacheDir().'/test/test2.css',
+        ];
+        
+        foreach ($sources as $source) {
+            $this->assertContains($source->getRealPath(), $asserts);
+        }
         $this->assertInstanceOf(Normalizer::class, $locator->getNormalizer());
     }
 
