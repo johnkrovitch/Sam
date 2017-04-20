@@ -31,9 +31,10 @@ class LocatorTest extends PHPUnitBase
         touch($this->getCacheDir().'/test/test2.css');
         $sources = $locator->locate($this->getCacheDir().'/test');
         $this->assertCount(2, $sources);
-        $this->assertEquals($this->getCacheDir().'/test/test.css', $sources[0]->getRealPath());
-        $this->assertEquals($this->getCacheDir().'/test/test2.css', $sources[1]->getRealPath());
-
+        
+        $this->assertEquals($this->getCacheDir().'/test/test.css', $sources[1]->getRealPath());
+        $this->assertEquals($this->getCacheDir().'/test/test2.css', $sources[0]->getRealPath());
+    
         $this->assertInstanceOf(Normalizer::class, $locator->getNormalizer());
     }
 
