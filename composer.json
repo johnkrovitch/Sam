@@ -9,7 +9,6 @@
       "email": "arnaudfrezet@gmail.com"
     }
   ],
-  "minimum-stability": "stable",
   "require": {
     "symfony/event-dispatcher": ">=3.0",
     "symfony/finder": ">=3.0",
