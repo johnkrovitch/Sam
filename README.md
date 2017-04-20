@@ -98,7 +98,7 @@ filters instances according to this configuration.
 ### Tasks
 
 A Task will apply one or more filters to a list of source files to a 
-directory or a list of destination files. It describe your asset compilation
+directory or a list of destination files. It describe your assets compilation
 process.
 
 #### Building your tasks
