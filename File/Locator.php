@@ -44,7 +44,7 @@ class Locator
 
         if (is_dir($source) || $endingWithWilCard) {
             $finder = new Finder();
-            $finder->in($source);
+            $finder->files()->in($source);
 
             foreach ($finder as $file) {
                 $sources[] = $file;
