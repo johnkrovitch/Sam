@@ -57,15 +57,15 @@ class TaskBuilder
     }
 
     /**
-     * Return true if tje copy filter is in last position.
+     * Return true if the copy filter is in last position.
      *
      * @param array $configuration
      * @return bool
      */
     protected function hasCopyFilter(array $configuration)
     {
-        return is_array($configuration['filters'])
-            && $configuration['filters'][count($configuration['filters']) - 1] == 'copy'
+        return is_array($configuration['filters']) &&
+            $configuration['filters'][count($configuration['filters']) - 1] == 'copy'
         ;
     }
 }
