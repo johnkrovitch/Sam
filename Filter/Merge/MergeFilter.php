@@ -20,37 +20,41 @@ class MergeFilter extends Filter
     {
         $fileSystem = new Filesystem();
         $mergedFiles = [];
-
+        
         foreach ($this->getSupportedExtensions() as $extension) {
             $shouldAddMergeFile = false;
             $mergedFile = $this->getCacheDir().'merged.'.$extension;
-
+            
+            // creating the merge file if not exists
+            if (!$fileSystem->exists($mergedFile)) {
+                $this->addNotification('creating '.$mergedFile.' merged file');
+                $fileSystem->touch($mergedFile);
+            }
+            // reset the merge file
+            $fileSystem->dumpFile($mergedFile, '');
+            
             foreach ($sources as $source) {
-
+                
                 if ($source->getExtension() !== $extension) {
                     continue;
                 }
-                // creating the merge file if not exists
-                if (!$fileSystem->exists($mergedFile)) {
-                    $this->addNotification('creating '.$mergedFile.' merged file');
-                    $fileSystem->touch($mergedFile);
-                }
+                
                 $this->addNotification('merging file '.$source);
-
+                
                 // append the current content to the merge file
-                file_put_contents($mergedFile, file_get_contents($source), FILE_APPEND);
-
+                $fileSystem->appendToFile($mergedFile, file_get_contents($source));
+                
                 $shouldAddMergeFile = true;
             }
-
+            
             if ($shouldAddMergeFile) {
                 $mergedFiles[] = $mergedFile;
             }
         }
-
+        
         return $mergedFiles;
     }
-
+    
     /**
      * Return the file extensions supported by this filter
      *
