@@ -62,7 +62,7 @@ library to minify your css and js files. No options are available for now.
 * Merge filter
 
 The Merge filter will merge multiple files into one. It allow you to reduce
-the number of http request. No options are available for now.
+the number of http requests. No options are available for now.
 
 * Copy filter
 
@@ -161,7 +161,7 @@ created to normalize file names for the filters.
 
 ```php
 
-    // used to normalize file names beecause multiple pattern ccould be passed
+    // used to normalize file names because multiple pattern could be passed
     $normalizer = new Normalizer('/path/to/project_root');
     
     // used to locate the file
