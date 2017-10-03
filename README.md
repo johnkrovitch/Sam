@@ -120,7 +120,7 @@ process.
                 'app/Resources/public/css/mycss.css',
                 'css/mycss.css',
                 'vendor/a-library/css/lib.css'
-            },
+            ],
             // all assets will be minified and merged to this file
             'destinations' => [
                 'web/css/main.min.css'
@@ -137,7 +137,7 @@ process.
                 'css/myjs.js',
                 'css/mycss.css',
                 'css/mycss.scss',
-            },
+            ],
             // all assets will be minified and merged to this directory
             'destinations' => [
                 'web/css'
