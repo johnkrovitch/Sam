@@ -37,22 +37,26 @@ class MinifyFilter extends Filter
                 $hasCss = true;
             }
         }
-        $cssMinified = $this->getCacheDir().'minified.css';
-        $jsMinified = $this->getCacheDir().'minified.js';
+        $cssMinPath = $this->getCacheDir().'minified.css';
+        $jsMinPath = $this->getCacheDir().'minified.js';
         $updatedSources = [];
 
         // js minification if required
         if ($hasJs) {
-            $this->addNotification($jsMinified.' js minification');
-            $jsMinifier->minify($jsMinified);
-            $updatedSources[] = $jsMinified;
+            $this->addNotification($jsMinPath.' js minification');
+            $jsMinifier->minify($jsMinPath);
+            $updatedSources[] = $jsMinPath;
         }
 
         // css minification if required
         if ($hasCss) {
-            $this->addNotification($cssMinified.' css minification');
-            $cssMinifier->minify($cssMinified);
-            $updatedSources[] = $cssMinified;
+            $this->addNotification($cssMinPath.' css minification');
+            // avoid css rewriting by not passing an argument to the minify() method and dump the content into the file
+            // ourselves
+            $content = $cssMinifier->minify();
+            file_put_contents($cssMinPath, $content);
+            
+            $updatedSources[] = $cssMinPath;
         }
 
         return $updatedSources;
