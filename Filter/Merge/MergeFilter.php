@@ -42,7 +42,8 @@ class MergeFilter extends Filter
                 $this->addNotification('merging file '.$source);
                 
                 // append the current content to the merge file
-                $fileSystem->appendToFile($mergedFile, file_get_contents($source));
+                $content = file_get_contents($source);
+                $fileSystem->dumpFile($mergedFile, $content);
                 
                 $shouldAddMergeFile = true;
             }
