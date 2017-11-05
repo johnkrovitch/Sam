@@ -43,7 +43,8 @@ class MergeFilter extends Filter
                 
                 // append the current content to the merge file
                 $content = file_get_contents($source);
-                $fileSystem->dumpFile($mergedFile, $content);
+                $mergedContent = file_get_contents($mergedFile);
+                $fileSystem->dumpFile($mergedFile, $mergedContent.$content);
                 
                 $shouldAddMergeFile = true;
             }
