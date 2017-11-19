@@ -1,6 +1,8 @@
 # Sam
 Simple Assets Manager
 
+Version : 0.1.7
+
 [![Build Status](https://travis-ci.org/johnkrovitch/Sam.svg?branch=master)](https://travis-ci.org/johnkrovitch/Sam)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/johnkrovitch/Sam/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/johnkrovitch/Sam/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/johnkrovitch/Sam/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/johnkrovitch/Sam/?branch=master)
