@@ -59,7 +59,9 @@ class CompassFilter extends Filter
         $process->run();
 
         if (!$process->isSuccessful()) {
-            throw new Exception('compass is not found at '.$this->getBin().'. '.$process->getErrorOutput());
+            throw new Exception(
+                'The Compass binary is not found at path "'.$this->getBin().'." '.$process->getErrorOutput()
+            );
         }
     }
 
