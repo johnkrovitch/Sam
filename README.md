@@ -6,7 +6,7 @@ Version : 0.1.7
 [![Build Status](https://travis-ci.org/johnkrovitch/Sam.svg?branch=master)](https://travis-ci.org/johnkrovitch/Sam)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/johnkrovitch/Sam/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/johnkrovitch/Sam/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/johnkrovitch/Sam/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/johnkrovitch/Sam/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/johnkrovitch/Sam/badges/build.png?b=master)](https://scrutinizer-ci.com/g/johnkrovitch/Sam/build-status/master)
+[![Build Status](https://scrutinizer-ci.com/g/johnkrovitch/Sam/badges/build.png?b=master)](https://scrutinizer-ci.com/g/johnkrovitch/Sam/build-status/master) [![GuardRails badge](https://badges.production.guardrails.io/johnkrovitch/Sam.svg)](https://www.guardrails.io)
 
 
 Sam is your friend. Sam is like you, he does not like handling complicated
