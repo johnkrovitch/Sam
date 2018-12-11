@@ -8,11 +8,11 @@ use JK\Sam\File\Normalizer;
 use JK\Sam\Task\Task;
 use JK\Sam\Task\TaskConfiguration;
 use JK\Sam\Task\TaskRunner;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PHPUnitBase extends PHPUnit_Framework_TestCase
+class PHPUnitBase extends TestCase
 {
     protected $fileSystem;
 
