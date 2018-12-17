@@ -24,12 +24,12 @@
   },
   "autoload": {
     "psr-0": {
-      "JK\\Sam": ""
+      "JK\\Sam\\": ""
     }
   },
   "autoload-dev": {
     "psr-0": {
-      "JK\\Sam\\Tests": "Tests"
+      "JK\\Sam\\Tests\\": "Tests"
     }
   },
   "target-dir": "JK/Sam",
