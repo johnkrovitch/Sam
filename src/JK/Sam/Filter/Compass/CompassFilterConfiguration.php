@@ -2,10 +2,10 @@
 
 namespace JK\Sam\Filter\Compass;
 
-use JK\Sam\Configuration\Configuration;
+use JK\Sam\Filter\Binary\BinaryFilterConfiguration;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CompassFilterConfiguration extends Configuration
+class CompassFilterConfiguration extends BinaryFilterConfiguration
 {
     /**
      * Define allowed parameters and values for this configuration, using optionsResolver component.
@@ -15,8 +15,10 @@ class CompassFilterConfiguration extends Configuration
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            // by default, we assume compass is loaded in $PATH
-            ->setDefault('bin', 'compass')
+            // We assume by default that the compass binary is loaded in $PATH
+            ->setDefaults([
+                'binary_path' => 'compass'
+            ])
         ;
     }
 }

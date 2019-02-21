@@ -15,6 +15,7 @@ class CompassFilter extends Filter
      * @param SplFileInfo[] $sources
      * @param SplFileInfo[] $destinations
      * @return SplFileInfo[]
+     *
      * @throws Exception
      */
     public function run(array $sources, array $destinations)
